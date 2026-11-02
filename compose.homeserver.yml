@@ -1,0 +1,18 @@
+services:
+  cavrouter:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "20120:20128"
+    environment:
+      NODE_ENV: production
+      HOSTNAME: "0.0.0.0"
+      PORT: "20128"
+      DATA_DIR: /app/data
+      # Set INITIAL_PASSWORD in the homeserver .env file (do not commit it).
+      INITIAL_PASSWORD: "${INITIAL_PASSWORD:?Set INITIAL_PASSWORD in .env on the homeserver}"
+    volumes:
+      - cavrouter-data:/app/data
+
+volumes:
+  cavrouter-data:
